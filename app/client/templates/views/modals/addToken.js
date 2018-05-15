@@ -15,7 +15,7 @@ Template['views_modals_addToken'].helpers({
     /**
     Returns the token for the preview token box
 
-    @.okc.d (previewToken)
+    @method (previewToken)
     */
     'previewToken' : function(){
         var token = _.clone(this || {});
@@ -69,7 +69,7 @@ Template['views_modals_addToken'].events({
 
         var l = e.currentTarget.value.length;
         if (!tokenAddress && l > 2 && l < 6) {
-            e.currentTarget.value += '.thetoken.okc.;
+            e.currentTarget.value += '.thetoken.eth';
             e.currentTarget.setSelectionRange(l,l+13);
         }
         

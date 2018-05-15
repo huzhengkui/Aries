@@ -1,8 +1,8 @@
 //sol Wallet
 // Multi-sig, daily-limited account proxy/wallet.
 // @authors:
-// Gav Wood <g.okc.ev.com>
-// inheritable "property" contract that enables .okc.ds to be protected by requiring the acquiescence of either a
+// Gav Wood <g@ethdev.com>
+// inheritable "property" contract that enables methods to be protected by requiring the acquiescence of either a
 // single, or, crucially, each of a number of, designated owners.
 // usage:
 // use modifiers onlyowner (just own owned) or onlymanyowners(hash), whereby the same hash must be provided by
@@ -222,8 +222,8 @@ contract multiowned {
     bytes32[] m_pendingIndex;
 }
 
-// inheritable "property" contract that enables .okc.ds to be protected by placing a linear limit (specifiable)
-// on a particular resource per calendar day. is multiowned to allow the limit to be altered. resource that .okc.d
+// inheritable "property" contract that enables methods to be protected by placing a linear limit (specifiable)
+// on a particular resource per calendar day. is multiowned to allow the limit to be altered. resource that method
 // uses is specified in the modifier.
 contract daylimit is multiowned {
 

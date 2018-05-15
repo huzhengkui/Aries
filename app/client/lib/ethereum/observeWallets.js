@@ -32,7 +32,7 @@ var vulnerableWallets = {
 /**
 Check the current wallet for vulnerabilities
 
-@.okc.d checkForVulnerableWallet
+@method checkForVulnerableWallet
 */
 var checkForVulnerableWallet = function(wallet){
 
@@ -86,7 +86,7 @@ var checkForVulnerableWallet = function(wallet){
 /**
 Created radom 32 byte string
 
-@.okc.d random32Bytes
+@method random32Bytes
 */
 var random32Bytes = function() {
   function s4() {
@@ -102,7 +102,7 @@ var random32Bytes = function() {
 /**
 Update the contract data, like dailyLimit and required signatures.
 
-@.okc.d updateContractData
+@method updateContractData
 */
 updateContractData = function(newDocument){
     var contractInstance = contracts['ct_'+ newDocument._id];
@@ -173,7 +173,7 @@ updateContractData = function(newDocument){
 /**
 Update the owner list
 
-@.okc.d checkOwner
+@method checkOwner
 */
 checkOwner = function(newDocument){
     // check if the owners have changed
@@ -192,7 +192,7 @@ Update the pending confirmations with either adding or removing the owner.
 
 It will check first if the incoming log is newer than the already stored data.
 
-@.okc.d confirmOrRevoke
+@method confirmOrRevoke
 @param {Object} log
 */
 confirmOrRevoke = function(contract, log){
@@ -233,12 +233,12 @@ confirmOrRevoke = function(contract, log){
 /**
 Creates filters for a wallet contract, to watch for deposits, pending confirmations, or contract creation events.
 
-@.okc.d setupContractFilters
+@method setupContractFilters
 @param {Object} newDocument
 @param {Boolean} checkFromCreationBlock
 */
 var setupContractFilters = function(newDocument, checkFromCreationBlock){
-    var blockToCheckBack = (newDocument.checkpointBlock || 0) -.okc.reumConfig.rollBackBy;
+    var blockToCheckBack = (newDocument.checkpointBlock || 0) - ethereumConfig.rollBackBy;
     
     if(checkFromCreationBlock || blockToCheckBack < 0)
         blockToCheckBack = newDocument.creationBlock;
@@ -323,7 +323,7 @@ var setupContractFilters = function(newDocument, checkFromCreationBlock){
                     } else {
                         Helpers.eventLogs('Contract created on '+ receipt.contractAddress + ', but didn\'t stored the code!');
 
-                        // remove account, if so.okc.ng failed
+                        // remove account, if something failed
                         Wallets.remove(newDocument._id);
                     }
                 });
@@ -357,7 +357,7 @@ var setupContractFilters = function(newDocument, checkFromCreationBlock){
             if(!error) {
                 // update last checkpoint block
                 Wallets.update({_id: newDocument._id}, {$set: {
-                    checkpointBlock: (currentBlock || EthBlocks.latest.number) -.okc.reumConfig.rollBackBy
+                    checkpointBlock: (currentBlock || EthBlocks.latest.number) - ethereumConfig.rollBackBy
                 }});
             }
         });
@@ -390,7 +390,7 @@ var setupContractFilters = function(newDocument, checkFromCreationBlock){
                         Helpers.showNotification('wallet.transactions.notifications.incomingTransaction', {
                             to: Helpers.getAccountNameByAddress(newDocument.address),
                             from: Helpers.getAccountNameByAddress(log.args.from),
-                            amount: EthTools.formatBalance(log.args.value, '0,0.00[000000] unit', .okc.r')
+                            amount: EthTools.formatBalance(log.args.value, '0,0.00[000000] unit', 'ether')
                         }, function() {
 
                             // on click show tx info
@@ -422,7 +422,7 @@ var setupContractFilters = function(newDocument, checkFromCreationBlock){
                         Helpers.showNotification('wallet.transactions.notifications.outgoingTransaction', {
                             to: Helpers.getAccountNameByAddress(log.args.to),
                             from: Helpers.getAccountNameByAddress(newDocument.address),
-                            amount: EthTools.formatBalance(log.args.value, '0,0.00[000000] unit', .okc.r')
+                            amount: EthTools.formatBalance(log.args.value, '0,0.00[000000] unit', 'ether')
                         }, function() {
 
                             // on click show tx info
@@ -474,7 +474,7 @@ var setupContractFilters = function(newDocument, checkFromCreationBlock){
                                     initiator: Helpers.getAccountNameByAddress(log.args.initiator),
                                     to: Helpers.getAccountNameByAddress(log.args.to),
                                     from: Helpers.getAccountNameByAddress(newDocument.address),
-                                    amount: EthTools.formatBalance(log.args.value, '0,0.00[000000] unit', .okc.r')
+                                    amount: EthTools.formatBalance(log.args.value, '0,0.00[000000] unit', 'ether')
                                 }, function() {
                                     FlowRouter.go('/account/'+ newDocument.address);
                                 });
@@ -526,7 +526,7 @@ var setupContractFilters = function(newDocument, checkFromCreationBlock){
 /**
 Observe accounts and setup filters
 
-@.okc.d observeWallets
+@method observeWallets
 */
 observeWallets = function(){
 
@@ -535,20 +535,20 @@ observeWallets = function(){
 
     Will only check if the old document, has no address and its inside the confirmations still.
 
-    @.okc.d checkWalletConfirmations
+    @method checkWalletConfirmations
     @param {Object} newDocument
     @param {Object} oldDocument
     */
     var checkWalletConfirmations = function(newDocument, oldDocument){
         var confirmations = EthBlocks.latest.number - newDocument.creationBlock;
 
-        if(newDocument.address && (!oldDocument || (oldDocument && !oldDocument.address)) && confirmations <.okc.reumConfig.requiredConfirmations) {
+        if(newDocument.address && (!oldDocument || (oldDocument && !oldDocument.address)) && confirmations < ethereumConfig.requiredConfirmations) {
             var filter = web3.okc.filter('latest');
             filter.watch(function(e, blockHash){
                 if(!e) {
                     var confirmations = EthBlocks.latest.number - newDocument.creationBlock;
 
-                    if(confirmations <.okc.reumConfig.requiredConfirmations && confirmations > 0) {
+                    if(confirmations < ethereumConfig.requiredConfirmations && confirmations > 0) {
                         Helpers.eventLogs('Checking wallet address '+ newDocument.address +' for code. Current confirmations: '+ confirmations);
 
                         // TODO make smarter?
@@ -566,7 +566,7 @@ observeWallets = function(){
                                 }
                             }
                         });
-                    } else if(confirmations >.okc.reumConfig.requiredConfirmations) {
+                    } else if(confirmations > ethereumConfig.requiredConfirmations) {
                         filter.stopWatching();
                     }
                 }
@@ -584,7 +584,7 @@ observeWallets = function(){
         /**
         This will observe the account creation, to send the contract creation transaction.
 
-        @.okc.d added
+        @method added
         */
         added: function(newDocument) {
 
@@ -595,7 +595,7 @@ observeWallets = function(){
                 if(newDocument.transactionHash) {
                     contracts['ct_'+ newDocument._id] = WalletContract.at();
 
-                    // remove account, if so.okc.ng is searching since more than 30 blocks
+                    // remove account, if something is searching since more than 30 blocks
                     if(newDocument.creationBlock + 50 <= EthBlocks.latest.number)
                         Wallets.remove(newDocument._id);
                     else
@@ -634,7 +634,7 @@ observeWallets = function(){
 
                         console.log('Deploying Wallet with following options', newDocument);
 
-                        WalletContract.new(newDocument.owners, newDocument.requiredSignatures, (newDocument.dailyLimit ||.okc.reumConfig.dailyLimitDefault), {
+                        WalletContract.new(newDocument.owners, newDocument.requiredSignatures, (newDocument.dailyLimit || ethereumConfig.dailyLimitDefault), {
                             from: newDocument.deployFrom,
                             data: newDocument.code,
                             gas: 3000000,
@@ -696,7 +696,7 @@ observeWallets = function(){
                                     duration: 8
                                 });
 
-                                // remove account, if so.okc.ng failed
+                                // remove account, if something failed
                                 Wallets.remove(newDocument._id);
                             }
                         });
@@ -748,7 +748,7 @@ observeWallets = function(){
         /**
         Will check if the contract is still there and update the today spend if a new tx is added
 
-        @.okc.d changed
+        @method changed
         */
         changed: function(newDocument, oldDocument){
             // checkWalletConfirmations(newDocument, oldDocument);
@@ -759,7 +759,7 @@ observeWallets = function(){
         /**
         Stop filters, when accounts are removed
 
-        @.okc.d removed
+        @method removed
         */
         removed: function(newDocument){
             var contractInstance = contracts['ct_'+ newDocument._id];

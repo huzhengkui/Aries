@@ -34,7 +34,7 @@ Template['elements_account'].helpers({
     /**
     Get the current account
 
-    @.okc.d (account)
+    @method (account)
     */
     'account': function(){
         return EthAccounts.findOne(this.account) || Wallets.findOne(this.account) || CustomContracts.findOne(this.account);
@@ -42,7 +42,7 @@ Template['elements_account'].helpers({
     /**
     Get all tokens
 
-    @.okc.d (tokens)
+    @method (tokens)
     */
     'tokens': function(){
         var query = {};
@@ -52,7 +52,7 @@ Template['elements_account'].helpers({
     /**
     Get the tokens balance
 
-    @.okc.d (formattedTokenBalance)
+    @method (formattedTokenBalance)
     */
     'formattedTokenBalance': function(e){
         var account = Template.parentData(2);
@@ -64,7 +64,7 @@ Template['elements_account'].helpers({
     /**
     Get the name
 
-    @.okc.d (name)
+    @method (name)
     */
     'name': function(){
         return this.name || TAPi18n.__('wallet.accounts.defaultName');
@@ -72,7 +72,7 @@ Template['elements_account'].helpers({
     /**
     Account was just added. Return true and remove the "new" field.
 
-    @.okc.d (new)
+    @method (new)
     */
     'new': function() {
         if(this.new) {
@@ -90,7 +90,7 @@ Template['elements_account'].helpers({
     /**
     Should the wallet show disabled
 
-    @.okc.d (creating)
+    @method (creating)
     */
     'creating': function(){
         var noAddress = !this.address;
@@ -103,13 +103,13 @@ Template['elements_account'].helpers({
     /**
     Returns the confirmations
 
-    @.okc.d (totalConfirmations)
+    @method (totalConfirmations)
     */
     'totalConfirmations': blocksForConfirmation,
     /**
-    Checks w.okc.r the transaction is confirmed ot not.
+    Checks whether the transaction is confirmed ot not.
 
-    @.okc.d (unConfirmed)
+    @method (unConfirmed)
     */
     'unConfirmed': function() {
         if(!this.address || !this.creationBlock || this.createdIdentifier)
@@ -126,14 +126,14 @@ Template['elements_account'].helpers({
     },
     /**
     Displays ENS names with triangles
-    @.okc.d (nameDisplay)
+    @method (nameDisplay)
     */
     'displayName': function(){
         return this.ens ? this.name.split('.').slice(0, -1).reverse().join(' ▸ ') : this.name;
     },
     /**
     Adds class about ens
-    @.okc.d (ensClass)
+    @method (ensClass)
     */
     'ensClass': function(){
         return this.ens ?  'ens-name' : 'not-ens-name';

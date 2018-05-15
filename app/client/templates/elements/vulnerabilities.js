@@ -9,7 +9,7 @@ Template['elements_vulnerabilities_txorigin'].helpers({
     /**
     Upgrade parameters for the wallet
 
-    @.okc.d (upgradeParams)
+    @method (upgradeParams)
     */
     'upgradeParams': function(){
         var params = 'walletId='+ this._id +'&name='+ this.name;
@@ -25,7 +25,7 @@ Template['elements_vulnerabilities_txorigin'].helpers({
     /**
     Return the wallet address if its an account
 
-    @.okc.d (walletAddress)
+    @method (walletAddress)
     */
     'walletAddress': function(){
         var account = this;

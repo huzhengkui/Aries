@@ -10,7 +10,7 @@ Template['elements_account_link'].helpers({
     /**
     Get the account and return the account or address of "from" or "to" property
 
-    @.okc.d (getAccount)
+    @method (getAccount)
     */
     'getAccount': function(){
         return Helpers.getAccountByAddress(this.address) || {address: web3.toChecksumAddress(this.address)};
@@ -18,7 +18,7 @@ Template['elements_account_link'].helpers({
     /**
     Adds class about ens
 
-    @.okc.d (ensClass)
+    @method (ensClass)
     */
     'ensClass': function(){
         return this.ens ?  'ens-name' : 'not-ens-name';
@@ -26,7 +26,7 @@ Template['elements_account_link'].helpers({
     /**
     Displays ENS names with triangles
 
-    @.okc.d (nameDisplay)
+    @method (nameDisplay)
     */
     'displayName': function(){
         return this.ens ? this.name.split('.').slice(0, -1).reverse().join(' ▸ ') : this.name;
@@ -34,7 +34,7 @@ Template['elements_account_link'].helpers({
     /**
     Displays ENS names with triangles
 
-    @.okc.d (nameDisplay)
+    @method (nameDisplay)
     */
     'tryENS': function(){
         var template = Template;

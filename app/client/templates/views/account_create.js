@@ -47,7 +47,7 @@ Template['views_account_create'].helpers({
     /**
     Get all accounts, which can become owners.
 
-    @.okc.d (ownerAccounts)
+    @method (ownerAccounts)
     */
     'ownerAccounts': function(){
         var accounts = EthAccounts.find({}, {sort: {balance: -1}}).fetch();
@@ -57,7 +57,7 @@ Template['views_account_create'].helpers({
     /**
     Return the selectedOwner
 
-    @.okc.d (selectedOwner)
+    @method (selectedOwner)
     */
     'selectedOwner': function(){
         return TemplateVar.getFrom('.dapp-select-account', 'value');
@@ -65,7 +65,7 @@ Template['views_account_create'].helpers({
     /**
     Return TRUE, if the current section is selected
 
-    @.okc.d (showSection)
+    @method (showSection)
     */
     'showSection': function(section){
         // reset import wallet
@@ -76,7 +76,7 @@ Template['views_account_create'].helpers({
     },
     /**
     Pick a default owner for the wallet
-    @.okc.d (defaultOwner)
+    @method (defaultOwner)
     @return (string)
     */
     'defaultOwner': function() {
@@ -100,7 +100,7 @@ Template['views_account_create'].helpers({
     /**
     Return the number of signees fields
 
-    @.okc.d (signees)
+    @method (signees)
     @return {Array} e.g. [1,2,3,4]
     */
     'signees': function(){
@@ -122,7 +122,7 @@ Template['views_account_create'].helpers({
     /**
     Translates to 'owner address'
 
-    @.okc.d (i18nOwnerAddress)
+    @method (i18nOwnerAddress)
     */
     'i18nOwnerAddress': function(){
         return TAPi18n.__('wallet.newWallet.accountType.multisig.ownerAddress');
@@ -130,7 +130,7 @@ Template['views_account_create'].helpers({
     /**
     Translates to 'wallet address'
 
-    @.okc.d (i18nWalletAddress)
+    @method (i18nWalletAddress)
     */
     'i18nWalletAddress': function(){
         return TAPi18n.__('wallet.newWallet.accountType.import.walletAddress');
@@ -138,7 +138,7 @@ Template['views_account_create'].helpers({
     /**
     Returns the import info text.
 
-    @.okc.d (importInfo)
+    @method (importInfo)
     */
     'importInfo': function() {
         var text = TemplateVar.get('importWalletInfo'),
@@ -156,7 +156,7 @@ Template['views_account_create'].helpers({
     /**
     Returns the class valid for valid addresses and invalid for non wallet addresses.
 
-    @.okc.d (importValidClass)
+    @method (importValidClass)
     */
     'importValidClass': function(){
         return TemplateVar.get('importWalletOwners') ? 'valid' : 'invalid';
@@ -164,7 +164,7 @@ Template['views_account_create'].helpers({
     /**
     Get the number of required multisignees (account owners)
 
-    @.okc.d (multisigSignees)
+    @method (multisigSignees)
     */
     'multisigSignees': function() {
         var id = FlowRouter.getQueryParam('walletId');
@@ -182,7 +182,7 @@ Template['views_account_create'].helpers({
     /**
     Get the number of required multisignatures
 
-    @.okc.d (multisigSignatures)
+    @method (multisigSignatures)
     */
     'multisigSignatures': function() {
         var signees = TemplateVar.get('multisigSignees');
@@ -198,7 +198,7 @@ Template['views_account_create'].helpers({
     /**
     Is simple checked
 
-    @.okc.d (simpleCheck)
+    @method (simpleCheck)
     */
     'simpleCheck': function() {
         return TemplateVar.get('selectedSection') === 'simple' ? 'checked' : '';
@@ -206,7 +206,7 @@ Template['views_account_create'].helpers({
     /**
     Is multisig checked
 
-    @.okc.d (multisigCheck)
+    @method (multisigCheck)
     */
     'multisigCheck': function() {
         return TemplateVar.get('selectedSection') === 'multisig' ? 'checked' : '';
@@ -214,16 +214,16 @@ Template['views_account_create'].helpers({
     /**
     Default dailyLimit
 
-    @.okc.d (defaultDailyLimit)
+    @method (defaultDailyLimit)
     */
     'defaultDailyLimit': function() {
         var dailyLimit = FlowRouter.getQueryParam('dailyLimit');
-        return typeof dailyLimit != 'undefined' ? web3.fromWei(dailyLimit,.okc.r') :  10;
+        return typeof dailyLimit != 'undefined' ? web3.fromWei(dailyLimit,'ether') :  10;
     },
     /**
     Default Name
 
-    @.okc.d (name)
+    @method (name)
     */
     'name': function() {
         return FlowRouter.getQueryParam('name');
@@ -321,7 +321,7 @@ Template['views_account_create'].events({
                 owners: owners,
                 name: template.find('input[name="accountName"]').value || TAPi18n.__('wallet.accounts.defaultName'),
                 balance: '0',
-                dailyLimit: web3.toWei(formValues.dailyLimitAmount, .okc.r'),
+                dailyLimit: web3.toWei(formValues.dailyLimitAmount, 'ether'),
                 requiredSignatures: formValues.multisigSignatures,
                 creationBlock: EthBlocks.latest.number,
                 code: code

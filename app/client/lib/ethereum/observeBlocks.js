@@ -3,7 +3,7 @@ var peerCountIntervalId = null;
 /**
 Update the peercount
 
-@.okc.d getPeerCount
+@method getPeerCount
 */
 var getPeerCount = function() {
     web3.net.getPeerCount(function(e, res) {
@@ -16,7 +16,7 @@ var getPeerCount = function() {
 /**
 Update wallet balances
 
-@.okc.d updateBalances
+@method updateBalances
 */
 updateBalances = function() {
     // UPDATE ALL BALANCES (incl. Tokens)
@@ -126,7 +126,7 @@ updateBalances = function() {
 /**
 Observe the latest blocks
 
-@.okc.d observeLatestBlocks
+@method observeLatestBlocks
 */
 observeLatestBlocks = function(){
 

@@ -18,7 +18,7 @@ Template['views_modals_transactionInfo'].helpers({
     /**
     Returns the current transaction
 
-    @.okc.d (transaction)
+    @method (transaction)
     @return {Object} the current transaction
     */
     'transaction': function() {
@@ -27,7 +27,7 @@ Template['views_modals_transactionInfo'].helpers({
     /**
     Calculates the confirmations of this tx
 
-    @.okc.d (confirmations)
+    @method (confirmations)
     @return {Number} the number of confirmations
     */
     'confirmations': function(){
@@ -37,7 +37,7 @@ Template['views_modals_transactionInfo'].helpers({
     /**
     Token value
 
-    @.okc.d (tokenValue)
+    @method (tokenValue)
     */
     'tokenValue': function() {
         var token = Tokens.findOne(this.tokenId);
@@ -47,7 +47,7 @@ Template['views_modals_transactionInfo'].helpers({
     /**
     Gas Price per million
 
-    @.okc.d (gasPricePerMillion)
+    @method (gasPricePerMillion)
     */
     'gasPricePerMillion': function() {
         return this.gasPrice * 1000000;

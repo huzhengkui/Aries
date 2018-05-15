@@ -9,7 +9,7 @@ Template['views_modals_interface'].helpers({
     /**
     Return the ABI in string formart
 
-    @.okc.d (jsonInterface)
+    @method (jsonInterface)
     */
     'jsonInterface': function() {
         return JSON.stringify(this.jsonInterface, null, 2).replace(/\s+/g,' ');

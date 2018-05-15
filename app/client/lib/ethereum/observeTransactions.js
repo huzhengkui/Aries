@@ -2,7 +2,7 @@
 /**
 Add a pending transaction to the transaction list, after sending
 
-@.okc.d addTransactionAfterSend
+@method addTransactionAfterSend
 */
 addTransactionAfterSend = function(txHash, amount, from, to, gasPrice, estimatedGas, data, tokenId) {
     var jsonInterface = undefined,
@@ -46,7 +46,7 @@ addTransactionAfterSend = function(txHash, amount, from, to, gasPrice, estimated
 /**
 Add new in/outgoing transaction
 
-@.okc.d addTransaction
+@method addTransaction
 @param {Object} log
 @param {String} from
 @param {String} to
@@ -100,7 +100,7 @@ addTransaction = function(log, from, to, value){
 /**
 Updates a transaction.
 
-@.okc.d updateTransaction
+@method updateTransaction
 @param {Object} newDocument     The transaction object from our database
 @param {Object} transaction     The transaction object from getTransaction
 @param {Object} receipt     The transaction object from getTransactionReceipt
@@ -255,7 +255,7 @@ var updateTransaction = function(newDocument, transaction, receipt){
 /**
 Observe transactions and pending confirmations
 
-@.okc.d observeTransactions
+@method observeTransactions
 */
 observeTransactions = function(){
 
@@ -263,7 +263,7 @@ observeTransactions = function(){
     /**
     Checking for confirmations of transactions.
 
-    @.okc.d checkTransactionConfirmations
+    @method checkTransactionConfirmations
     @param {Object} newDocument
     @param {Object} oldDocument
     */
@@ -290,7 +290,7 @@ observeTransactions = function(){
                     }
 
 
-                    if(confirmations <.okc.reumConfig.requiredConfirmations && confirmations >= 0) {
+                    if(confirmations < ethereumConfig.requiredConfirmations && confirmations >= 0) {
                         Helpers.eventLogs('Checking transaction '+ tx.transactionHash +'. Current confirmations: '+ confirmations);
 
 
@@ -320,7 +320,7 @@ observeTransactions = function(){
 
                     }
 
-                    if(confirmations >.okc.reumConfig.requiredConfirmations || confCount >.okc.reumConfig.requiredConfirmations*2) {
+                    if(confirmations > ethereumConfig.requiredConfirmations || confCount > ethereumConfig.requiredConfirmations*2) {
 
                         // confirm after a last check
                         web3.okc.getTransaction(tx.transactionHash, function(e, transaction){
@@ -390,7 +390,7 @@ observeTransactions = function(){
         /**
         This will observe the transactions creation and create watchers for outgoing transactions, to see when they are mined.
 
-        @.okc.d added
+        @method added
         */
         added: function(newDocument) {
             var confirmations = EthBlocks.latest.number - newDocument.blockNumber;
@@ -456,7 +456,7 @@ observeTransactions = function(){
         /**
         Will check if the transaction is confirmed
 
-        @.okc.d changed
+        @method changed
         */
         changed: function(newDocument){
             // add to accounts
@@ -475,7 +475,7 @@ observeTransactions = function(){
         /**
         Remove transactions confirmations from the accounts
 
-        @.okc.d removed
+        @method removed
         */
         removed: function(document) {
             Wallets.update({address: document.from}, {$pull: {

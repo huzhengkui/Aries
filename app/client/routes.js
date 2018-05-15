@@ -33,7 +33,7 @@ FlowRouter.triggers.enter([function(){
 /**
 The receive route, showing the wallet overview
 
-@.okc.d dashboard
+@method dashboard
 */
 FlowRouter.route('/', {
     name: 'dashboard',
@@ -49,7 +49,7 @@ FlowRouter.route('/', {
 /**
 The send route.
 
-@.okc.d send
+@method send
 */
 FlowRouter.route('/send', {
     name: 'send',
@@ -64,7 +64,7 @@ FlowRouter.route('/send', {
 /**
 The Coins route.
 
-@.okc.d tokens
+@method tokens
 */
 FlowRouter.route('/tokens', {
     name: 'tokens',
@@ -80,7 +80,7 @@ FlowRouter.route('/tokens', {
 /**
 The Coins route.
 
-@.okc.d tokens
+@method tokens
 */
 FlowRouter.route('/contracts', {
     name: 'contracts',
@@ -97,7 +97,7 @@ FlowRouter.route('/contracts', {
 /**
 The send route.
 
-@.okc.d send
+@method send
 */
 FlowRouter.route('/send/:address', {
     name: 'sendTo',
@@ -112,7 +112,7 @@ FlowRouter.route('/send/:address', {
 /**
 The send route.
 
-@.okc.d send
+@method send
 */
 FlowRouter.route('/send-from/:from', {
     name: 'sendFrom',
@@ -127,7 +127,7 @@ FlowRouter.route('/send-from/:from', {
 /**
 The send route.
 
-@.okc.d send
+@method send
 */
 FlowRouter.route('/send-token/:from/:token', {
     name: 'sendToken',
@@ -143,7 +143,7 @@ FlowRouter.route('/send-token/:from/:token', {
 /**
 The send route.
 
-@.okc.d send
+@method send
 */
 FlowRouter.route('/deploy-contract', {
     name: 'deployContract',
@@ -162,7 +162,7 @@ FlowRouter.route('/deploy-contract', {
 /**
 The create account route.
 
-@.okc.d send
+@method send
 */
 FlowRouter.route('/account/new', {
     name: 'createAccount',
@@ -179,7 +179,7 @@ FlowRouter.route('/account/new', {
 /**
 The account route.
 
-@.okc.d send
+@method send
 */
 FlowRouter.route('/account/:address', {
     name: 'account',

@@ -1,7 +1,7 @@
 /**
 Check if a pending confirmation is still pending
 
-@.okc.d checkConfirmation
+@method checkConfirmation
 */
 checkConfirmation = function(confirmationId){
     var conf = PendingConfirmations.findOne(confirmationId);
@@ -39,7 +39,7 @@ checkConfirmation = function(confirmationId){
 /**
 Observe pending confirmations
 
-@.okc.d observePendingConfirmations
+@method observePendingConfirmations
 */
 observePendingConfirmations = function(){
     /**
@@ -52,7 +52,7 @@ observePendingConfirmations = function(){
         /**
         Add pending confirmations to the accounts
 
-        @.okc.d added
+        @method added
         */
         added: function(document) {
             checkConfirmation(document._id);
@@ -64,7 +64,7 @@ observePendingConfirmations = function(){
         /**
         Remove pending confirmations from the accounts
 
-        @.okc.d removed
+        @method removed
         */
         removed: function(document) {
             updateMistBadge();
@@ -72,7 +72,7 @@ observePendingConfirmations = function(){
         /**
         Add pending confirmations to the accounts
 
-        @.okc.d changed
+        @method changed
         */
         changed: function(id, fields) {
             if(typeof mist !== 'undefined' && document.confirmedOwners && document.confirmedOwners.length) {

@@ -5,7 +5,7 @@ var tokenContracts = {};
 /**
 Creates filters for a wallet contract, to watch for deposits, pending confirmations, or contract creation events.
 
-@.okc.d setupContractFilters
+@method setupContractFilters
 @param {Object} newDocument
 @param {Boolean} checkFromCreationBlock
 */
@@ -15,9 +15,9 @@ var setupContractFilters = function(newDocument){
     if(!contractInstance)
         return;
 
-    var blockToCheckBack = (newDocument.checkpointBlock || 0) -.okc.reumConfig.rollBackBy;
+    var blockToCheckBack = (newDocument.checkpointBlock || 0) - ethereumConfig.rollBackBy;
 
-    // TODO change to 0, when new .okc.is out!!!!!
+    // TODO change to 0, when new geth is out!!!!!
     if(blockToCheckBack < 400000)
         blockToCheckBack = 400000;
 
@@ -45,7 +45,7 @@ var setupContractFilters = function(newDocument){
         if(!error) {
             // update last checkpoint block
             Tokens.update({_id: newDocument._id}, {$set: {
-                checkpointBlock: (currentBlock || EthBlocks.latest.number) -.okc.reumConfig.rollBackBy
+                checkpointBlock: (currentBlock || EthBlocks.latest.number) - ethereumConfig.rollBackBy
             }});
         }
     });
@@ -103,7 +103,7 @@ var setupContractFilters = function(newDocument){
 /**
 Observe tokens
 
-@.okc.d observeTokens
+@method observeTokens
 */
 observeTokens = function(){
 
@@ -117,7 +117,7 @@ observeTokens = function(){
         /**
         Will check if the tokens are on the current chain and setup its listeners.
 
-        @.okc.d added
+        @method added
         */
         added: function(newDocument) {
 
@@ -145,7 +145,7 @@ observeTokens = function(){
         /**
         Remove transactions confirmations from the accounts
 
-        @.okc.d removed
+        @method removed
         */
         removed: function(document) {
             var contractInstance = tokenContracts['ct_'+ document._id];

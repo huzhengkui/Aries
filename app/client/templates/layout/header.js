@@ -20,7 +20,7 @@ Template['layout_header'].helpers({
     /**
     Returns the correct url for the send to route
 
-    @.okc.d (goToSend)
+    @method (goToSend)
     @return {String}
     */
     'goToSend': function() {
@@ -36,7 +36,7 @@ Template['layout_header'].helpers({
     /**
     Calculates the total balance of all accounts + wallets.
 
-    @.okc.d (totalBalance)
+    @method (totalBalance)
     @return {String}
     */
     'totalBalance': function(){
@@ -52,7 +52,7 @@ Template['layout_header'].helpers({
     /**
     Formats the last block number
 
-    @.okc.d (formattedBlockNumber)
+    @method (formattedBlockNumber)
     @return {String}
     */
     'formattedBlockNumber': function() {
@@ -61,7 +61,7 @@ Template['layout_header'].helpers({
     /**
     Gets the time since the last block
 
-    @.okc.d (timeSinceBlock)
+    @method (timeSinceBlock)
     */
     'timeSinceBlock': function () {
         
@@ -90,7 +90,7 @@ Template['layout_header'].helpers({
     /**
     Formats the time since the last block
 
-    @.okc.d (timeSinceBlockText)
+    @method (timeSinceBlockText)
     */
     'timeSinceBlockText': function () {
         

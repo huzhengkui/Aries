@@ -15,7 +15,7 @@ The contracts template
 /**
 Function to add a new custom contract
 
-@.okc.d addCustomContract
+@method addCustomContract
 */
 var addCustomContract = function(e) {
 
@@ -55,7 +55,7 @@ var addCustomContract = function(e) {
             jsonInterface: jsonInterface
         }});
 
-        // update balances from lib.okc.reum/observeBlocks.js
+        // update balances from lib/ethereum/observeBlocks.js
         updateBalances();
 
         GlobalNotification.success({
@@ -74,7 +74,7 @@ var addCustomContract = function(e) {
 /**
 Function to add tokens
 
-@.okc.d addToken
+@method addToken
 */
 var addToken = function(e) {
 
@@ -101,7 +101,7 @@ var addToken = function(e) {
             decimals: Number(decimals || 0)
         }});
 
-        // update balances from lib.okc.reum/observeBlocks.js
+        // update balances from lib/ethereum/observeBlocks.js
         updateBalances();
 
         GlobalNotification.success({
@@ -122,7 +122,7 @@ Template['views_contracts'].helpers({
     /**
     Get all custom contracts
 
-    @.okc.d (customContracts)
+    @method (customContracts)
     */
     'customContracts': function(){
         return CustomContracts.find({}, {sort:{name:1}});
@@ -130,7 +130,7 @@ Template['views_contracts'].helpers({
     /**
     Get all tokens
 
-    @.okc.d (tokens)
+    @method (tokens)
     */
     'tokens': function(){
         return Tokens.find({}, {sort:{name:1}});

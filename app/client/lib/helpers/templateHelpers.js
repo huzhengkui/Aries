@@ -16,7 +16,7 @@ Global template helpers
 /**
 A simple template helper to log objects in the console.
 
-@.okc.d (debug)
+@method (debug)
 **/
 Template.registerHelper('debug', function(object){
     console.log(object);
@@ -25,7 +25,7 @@ Template.registerHelper('debug', function(object){
 /**
 Check if in mist
 
-@.okc.d (isMist)
+@method (isMist)
 **/
 Template.registerHelper('isMist', function(){
     return (typeof window.mistMode === 'undefined');
@@ -34,16 +34,16 @@ Template.registerHelper('isMist', function(){
 /**
 Check if in mist and in mist mode
 
-@.okc.d (isWalletMode)
+@method (isWalletMode)
 **/
 Template.registerHelper('isWalletMode', function(){
     return window.mistMode === 'wallet' || typeof mist === 'undefined'; // also show network info in normal browsers
 });
 
 /**
-Check if currency unit is an.okc.r unit
+Check if currency unit is an ether unit
 
-@.okc.d (isEtherUnit)
+@method (isEtherUnit)
 **/
 Template.registerHelper('isEtherUnit', function(){
     var unit = EthTools.getUnit();
@@ -54,7 +54,7 @@ Template.registerHelper('isEtherUnit', function(){
 /**
 Check if wallet has vulnerabilities
 
-@.okc.d (isVulnerable)
+@method (isVulnerable)
 @param {String} address and address of a wallet/account
 **/
 Template.registerHelper('isVulnerable', function(address){
@@ -92,7 +92,7 @@ Template.registerHelper('isVulnerable', function(address){
 /**
 Return the current unit
 
-@.okc.d (unit)
+@method (unit)
 **/
 Template.registerHelper('unit', function(){
     return EthTools.getUnit();
@@ -101,7 +101,7 @@ Template.registerHelper('unit', function(){
 /**
 Return the latest block
 
-@.okc.d (latestBlock)
+@method (latestBlock)
 **/
 Template.registerHelper('latestBlock', function(){
     return EthBlocks.latest;
@@ -110,7 +110,7 @@ Template.registerHelper('latestBlock', function(){
 /**
 Returns a list of accounts and wallets sorted by balance
 
-@.okc.d (latestBlock)
+@method (latestBlock)
 **/
 Template.registerHelper('selectAccounts', function(hideWallets){
     var accounts = EthAccounts.find({balance:{$ne:"0"}}, {sort: {balance: 1}}).fetch();
@@ -125,7 +125,7 @@ Template.registerHelper('selectAccounts', function(hideWallets){
 /**
 Check if the given wallet is a watch only wallet, by checking if we are one of owners in the wallet.
 
-@.okc.d (isWatchOnly)
+@method (isWatchOnly)
 @param {String} id the id of the wallet to check
 **/
 Template.registerHelper('isWatchOnly', Helpers.isWatchOnly);
@@ -133,7 +133,7 @@ Template.registerHelper('isWatchOnly', Helpers.isWatchOnly);
 /**
 Return the right wallet icon
 
-@.okc.d (walletIcon)
+@method (walletIcon)
 **/
 Template.registerHelper('walletIcon', function(){
     var icon = '';
@@ -153,7 +153,7 @@ Template.registerHelper('walletIcon', function(){
 /**
 Get the account name or display the address
 
-@.okc.d (accountNameOrAddress)
+@method (accountNameOrAddress)
 @param {String} address
 */
 Template.registerHelper('accountNameOrAddress', function(address){
@@ -168,7 +168,7 @@ Format a number based on decimal numbers
 
     {{formatNumberByDecimals tokenAmount decimals}}
 
-@.okc.d formatNumberByDecimals
+@method formatNumberByDecimals
 @param {Number} number
 @param {Number} decimals
 */
@@ -179,10 +179,10 @@ Formats a timestamp to any format given.
 
     {{formatTime myTime "YYYY-MM-DD"}}
 
-@.okc.d (formatTime)
+@method (formatTime)
 @param {String} time         The timstamp, can be string or unix format
 @param {String} format       the format string, can also be "iso", to format to ISO string, or "fromnow"
-//@param {Boolean} realTime    W.okc.r or not this helper should re-run every 10s
+//@param {Boolean} realTime    Whether or not this helper should re-run every 10s
 @return {String} The formated time
 **/
 Template.registerHelper('formatTime', Helpers.formatTime);
@@ -191,9 +191,9 @@ Template.registerHelper('formatTime', Helpers.formatTime);
 /**
 Formats a given transactions balance
 
-    {{formatTransactionBalance value exchangeRates .okc.r"}}
+    {{formatTransactionBalance value exchangeRates "ether"}}
 
-@.okc.d formatTransactionBalance
+@method formatTransactionBalance
 @param {String} value  the value to format
 @param {Object} exchangeRates  the exchange rates to use
 @param {String} unit  the unit to format to
@@ -205,7 +205,7 @@ Template.registerHelper('formatTransactionBalance', Helpers.formatTransactionBal
 /**
 Formats address to a CaseChecksum
 
-@.okc.d toChecksumAddress
+@method toChecksumAddress
 @param {String} address             The address
 @return {String} checksumAddress    The returned, checksummed address
 **/
@@ -218,7 +218,7 @@ Template.registerHelper('toChecksumAddress', function(address){
 /**
 Takes a camelcase and shows it with spaces
 
-@.okc.d toSentence
+@method toSentence
 @param {string} camelCase    A name in CamelCase or snake_case format
 @return {string} sentence    The same name with spaces
 **/

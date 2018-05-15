@@ -3,7 +3,7 @@ var customContractsCache = {};
 /**
 Observe events
 
-@.okc.d observeEvents
+@method observeEvents
 */
 observeEvents = function(){
     /**
@@ -16,7 +16,7 @@ observeEvents = function(){
         /**
         This will observe when events are added and link it to the custom contract.
 
-        @.okc.d added
+        @method added
         */
         added: function(newDocument) {
             CustomContracts.update({address: newDocument.address.toLowerCase()}, {$addToSet: {
@@ -27,7 +27,7 @@ observeEvents = function(){
         /**
         Remove events confirmations from the accounts
 
-        @.okc.d removed
+        @method removed
         */
         removed: function(document) {
             CustomContracts.update({address: document.address.toLowerCase()}, {$pull: {

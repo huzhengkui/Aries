@@ -18,7 +18,7 @@ Template['views_modals_eventInfo'].helpers({
     /**
     Returns the current event
 
-    @.okc.d (event)
+    @method (event)
     @return {Object} the current event
     */
     'event': function() {
@@ -27,7 +27,7 @@ Template['views_modals_eventInfo'].helpers({
     /**
     Calculates the confirmations of this tx
 
-    @.okc.d (confirmations)
+    @method (confirmations)
     @return {Number} the number of confirmations
     */
     'confirmations': function(){
@@ -37,7 +37,7 @@ Template['views_modals_eventInfo'].helpers({
     /**
     Event return values
 
-    @.okc.d (returnValues)
+    @method (returnValues)
     */
     'returnValues': function() {
         if(this.args) {

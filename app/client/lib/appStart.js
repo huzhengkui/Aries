@@ -25,8 +25,8 @@ Meteor.Spinner.options = {
     color: '#000', // #rgb or #rrggbb or array of colors
     speed: 1.7, // Rounds per second
     trail: 49, // Afterglow percentage
-    shadow: false, // W.okc.r to render a shadow
-    hwaccel: false, // W.okc.r to use hardware acceleration
+    shadow: false, // Whether to render a shadow
+    hwaccel: false, // Whether to use hardware acceleration
     className: 'spinner', // The CSS class to assign to the spinner
     zIndex: 10, // The z-index (defaults to 2000000000)
     top: '50%', // Top position relative to parent
@@ -76,7 +76,7 @@ var connect = function(){
 
     if(web3.isConnected()) {
 
-        // only start app operation, when the node is not syncing (or the okc_syncing property doesn't exists)
+        // only start app operation, when the node is not syncing (or the eth_syncing property doesn't exists)
         web3.okc.getSyncing(function(e, sync) {
             if(e || !sync) {
                 connectToNode();
@@ -89,12 +89,12 @@ var connect = function(){
 
         // make sure the modal is rendered after all routes are executed
         Meteor.setTimeout(function(){
-            // if in mist, tell to start .okc. otherwise start with RPC
-            var .okc.PC = (web3.admin) ? '.okc. : '.okc.--rpc --rpccorsdomain "'+window.location.protocol + '//' + window.location.host+'"';
+            // if in mist, tell to start geth, otherwise start with RPC
+            var gethRPC = (web3.admin) ? 'geth' : 'geth --rpc --rpccorsdomain "'+window.location.protocol + '//' + window.location.host+'"';
 
             EthElements.Modal.question({
                 text: new Spacebars.SafeString(TAPi18n.__('wallet.app.texts.connectionError' + (web3.admin ? 'Mist' : 'Browser'), 
-                    {node: .okc.PC})),
+                    {node: gethRPC})),
                 ok: function(){
                     Tracker.afterFlush(function(){
                         connect();

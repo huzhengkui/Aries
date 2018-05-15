@@ -17,7 +17,7 @@ boilerplate-generator@1.0.8
 caching-compiler@1.0.4
 caching-html-compiler@1.0.6
 callback-hook@1.0.8
-cfs:http-.okc.ds@0.0.32
+cfs:http-methods@0.0.32
 check@1.2.1
 chuangbo:cookie@1.1.0
 coffeescript@1.0.17
@@ -31,12 +31,12 @@ diff-sequence@1.0.5
 ecmascript@0.4.3
 ecmascript-runtime@0.2.10
 ejson@1.0.11
-okcApp:accounts@0.4.0
-okcApp:blocks@0.3.2
-okcApp:dapp-styles@0.5.7
-okcApp:elements@0.7.18
-okcApp:tools@0.7.0
-okcApp:web3@0.15.3
+ethereum:accounts@0.4.0
+ethereum:blocks@0.3.2
+ethereum:dapp-styles@0.5.7
+ethereum:elements@0.7.18
+ethereum:tools@0.7.0
+ethereum:web3@0.15.3
 fastclick@1.0.11
 frozeman:animation-helper@0.2.6
 frozeman:global-notifications@0.2.1

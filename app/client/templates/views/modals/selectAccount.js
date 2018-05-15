@@ -16,7 +16,7 @@ Template['views_modals_selectAccount'].helpers({
     /**
     Return the accounts
 
-    @.okc.d (accounts)
+    @method (accounts)
     */
     'accounts': function(){
         if(_.isString(this.accounts[0]))

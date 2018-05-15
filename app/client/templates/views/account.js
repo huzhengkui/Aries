@@ -11,7 +11,7 @@ Watches custom events
 */
 var addLogWatching = function(newDocument){
     var contractInstance = web3.okc.contract(newDocument.jsonInterface).at(newDocument.address);
-    var blockToCheckBack = (newDocument.checkpointBlock || 0) -.okc.reumConfig.rollBackBy;
+    var blockToCheckBack = (newDocument.checkpointBlock || 0) - ethereumConfig.rollBackBy;
 
     if(blockToCheckBack < 0)
         blockToCheckBack = 0;
@@ -32,7 +32,7 @@ var addLogWatching = function(newDocument){
         if(!error) {
             // update last checkpoint block
             CustomContracts.update({_id: newDocument._id}, {$set: {
-                checkpointBlock: (currentBlock || EthBlocks.latest.number) -.okc.reumConfig.rollBackBy
+                checkpointBlock: (currentBlock || EthBlocks.latest.number) - ethereumConfig.rollBackBy
             }});
         }
     });
@@ -88,7 +88,7 @@ Template['views_account'].helpers({
     /**
     Get the current selected account
 
-    @.okc.d (account)
+    @method (account)
     */
     'account': function() {
         return Helpers.getAccountByAddress(FlowRouter.getParam('address'));
@@ -96,7 +96,7 @@ Template['views_account'].helpers({
     /**
     Get the current jsonInterface, or use the wallet jsonInterface
 
-    @.okc.d (jsonInterface)
+    @method (jsonInterface)
     */
     'jsonInterface': function() {
         return (this.owners) ? _.clone(walletInterface) : _.clone(this.jsonInterface);
@@ -104,7 +104,7 @@ Template['views_account'].helpers({
     /**
     Get the pending confirmations of this account.
 
-    @.okc.d (pendingConfirmations)
+    @method (pendingConfirmations)
     */
     'pendingConfirmations': function(){
         return _.pluck(PendingConfirmations.find({operation: {$exists: true}, confirmedOwners: {$ne: []}, from: this.address}).fetch(), '_id');
@@ -112,7 +112,7 @@ Template['views_account'].helpers({
     /**
     Return the daily limit available today.
 
-    @.okc.d (availableToday)
+    @method (availableToday)
     */
     'availableToday': function() {
         return new BigNumber(this.dailyLimit || '0', 10).minus(new BigNumber(this.dailyLimitSpent || '0', '10')).toString(10);
@@ -120,15 +120,15 @@ Template['views_account'].helpers({
     /**
     Show dailyLimit section
 
-    @.okc.d (showDailyLimit)
+    @method (showDailyLimit)
     */
     'showDailyLimit': function(){
-        return (this.dailyLimit && this.dailyLimit !==.okc.reumConfig.dailyLimitDefault);
+        return (this.dailyLimit && this.dailyLimit !== ethereumConfig.dailyLimitDefault);
     },
     /**
     Show requiredSignatures section
 
-    @.okc.d (showRequiredSignatures)
+    @method (showRequiredSignatures)
     */
     'showRequiredSignatures': function(){
         return (this.requiredSignatures && this.requiredSignatures > 1);
@@ -136,7 +136,7 @@ Template['views_account'].helpers({
     /**
     Link the owner either to send or to the account itself.
 
-    @.okc.d (ownerLink)
+    @method (ownerLink)
     */
     'ownerLink': function(){
         var owner = String(this);
@@ -148,7 +148,7 @@ Template['views_account'].helpers({
     /**
     Get all tokens
 
-    @.okc.d (tokens)
+    @method (tokens)
     */
     'tokens': function(){
         var query = {};
@@ -158,7 +158,7 @@ Template['views_account'].helpers({
     /**
     Get the tokens balance
 
-    @.okc.d (formattedTokenBalance)
+    @method (formattedTokenBalance)
     */
     'formattedTokenBalance': function(e){
         var account = Template.parentData(2);
@@ -170,7 +170,7 @@ Template['views_account'].helpers({
     /**
     Checks if this is Owned
 
-    @.okc.d (ownedAccount)
+    @method (ownedAccount)
     */
     'ownedAccount': function(){
         return EthAccounts.find({address: this.address.toLowerCase()}).count() > 0 ;
@@ -178,7 +178,7 @@ Template['views_account'].helpers({
     /**
     Gets the contract events if available
 
-    @.okc.d (customContract)
+    @method (customContract)
     */
     'customContract': function(){
         return CustomContracts.findOne({address: this.address.toLowerCase()});
@@ -186,7 +186,7 @@ Template['views_account'].helpers({
     /**
      Displays ENS names with triangles
 
-     @.okc.d (nameDisplay)
+     @method (nameDisplay)
      */
     'displayName': function(){
          return this.ens ? this.name.split('.').slice(0, -1).reverse().join(' ▸ ') : this.name;

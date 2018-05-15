@@ -18,7 +18,7 @@ The available units
 */
 selectableUnits = [{
     text: 'ETHER',
-    value: .okc.r'
+    value: 'ether'
 },
 {
     text: 'FINNEY', //(µΞ)
@@ -53,7 +53,7 @@ if (moment().format('MM-DD')=='04-01') {
         { text: 'LOVELACE', value: 'lovelace'},
         { text: 'BABBAGE', value: 'babbage'},
         { text: 'WEI', value: 'wei'},
-        { text: 'NOETHER', value: 'n.okc.r'})
+        { text: 'NOETHER', value: 'noether'})
 
 // Claude's Birthday
 } else if (moment().format('MM-DD')=='04-30') {
@@ -71,7 +71,7 @@ Template['elements_selectableUnit'].helpers({
     /**
     Gets currently selected unit
 
-    @.okc.d (selectedUnit)
+    @method (selectedUnit)
     */
     'selectedUnit': function(){
         var unit = _.find(selectableUnits, function(unit){
@@ -84,7 +84,7 @@ Template['elements_selectableUnit'].helpers({
     /**
     Return the selectable units
 
-    @.okc.d (selectedUnit)
+    @method (selectedUnit)
     */
     'units': function(){
         return selectableUnits;
@@ -92,7 +92,7 @@ Template['elements_selectableUnit'].helpers({
     /**
     Can select units
 
-    @.okc.d (selectedUnit)
+    @method (selectedUnit)
     */
     'selectable': function(){
         return Session.get('network') == 'main';

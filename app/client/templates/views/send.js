@@ -25,13 +25,13 @@ var defaultEstimateGas = 50000000;
 /**
 Check if the amount accounts daily limit  and sets the correct text.
 
-@.okc.d checkOverDailyLimit
+@method checkOverDailyLimit
 */
 var checkOverDailyLimit = function(address, wei, template){
     // check if under or over dailyLimit
     account = Helpers.getAccountByAddress(address);
 
-    if(account && account.requiredSignatures > 1 && !_.isUndefined(account.dailyLimit) && account.dailyLimit !==.okc.reumConfig.dailyLimitDefault && Number(wei) !== 0) {
+    if(account && account.requiredSignatures > 1 && !_.isUndefined(account.dailyLimit) && account.dailyLimit !== ethereumConfig.dailyLimitDefault && Number(wei) !== 0) {
         // check whats left
         var restDailyLimit = new BigNumber(account.dailyLimit || '0', 10).minus(new BigNumber(account.dailyLimitSpent || '0', 10));
 
@@ -46,7 +46,7 @@ var checkOverDailyLimit = function(address, wei, template){
 /**
 Get the data field of either the byte or source code textarea, depending on the selectedType
 
-@.okc.d getDataField
+@method getDataField
 */
 var getDataField = function(){
     // make reactive to the show/hide of the textarea
@@ -57,7 +57,7 @@ var getDataField = function(){
     // send tokens
     var selectedToken = TemplateVar.get('selectedToken');
 
-    if(selectedToken && selectedToken !== .okc.r') {
+    if(selectedToken && selectedToken !== 'ether') {
         var mainRecipient = TemplateVar.getFrom('div.dapp-address-input input.to', 'value');
         var amount = TemplateVar.get('amount') || '0';
         var token = Tokens.findOne({address: selectedToken});
@@ -74,7 +74,7 @@ var getDataField = function(){
 /**
 Gas estimation callback
 
-@.okc.d estimationCallback
+@method estimationCallback
 */
 var estimationCallback = function(e, res){
     var template = this;
@@ -96,7 +96,7 @@ var estimationCallback = function(e, res){
 Translate an external error message into the user's language if possible. Otherwise return
 the old error message.
 
-@.okc.d translateExternalErrorMessage
+@method translateExternalErrorMessage
 */
 var translateExternalErrorMessage = function(message) {
     // 'setTxStatusRejected' occurs in the stack trace of the error message triggered when
@@ -122,12 +122,12 @@ Template['views_send'].onCreated(function(){
     // Deploy contract
     if(FlowRouter.getRouteName() === 'deployContract') {
         TemplateVar.set('selectedAction', 'deploy-contract');
-        TemplateVar.set('selectedToken', .okc.r');
+        TemplateVar.set('selectedToken', 'ether');
 
     // Send funds
     } else {
         TemplateVar.set('selectedAction', 'send-funds');
-        TemplateVar.set('selectedToken', FlowRouter.getParam('token') || .okc.r');
+        TemplateVar.set('selectedToken', FlowRouter.getParam('token') || 'ether');
     }
 
     // check if we are still on the correct chain
@@ -152,7 +152,7 @@ Template['views_send'].onCreated(function(){
     template.autorun(function(c){
         var unit = EthTools.getUnit();
 
-        if(!c.firstRun && TemplateVar.get('selectedToken') === .okc.r') {
+        if(!c.firstRun && TemplateVar.get('selectedToken') === 'ether') {
             TemplateVar.set('amount', EthTools.toWei(template.find('input[name="amount"]').value.replace(',','.'), unit));
         }
     });
@@ -200,7 +200,7 @@ Template['views_send'].onRendered(function(){
 
 
         if (selectedAddress !== address) {
-            TemplateVar.set('selectedToken', .okc.r');
+            TemplateVar.set('selectedToken', 'ether');
         }
 
         selectedAddress = address;
@@ -219,7 +219,7 @@ Template['views_send'].onRendered(function(){
 
 
         // Ether tx estimation
-        if(tokenAddress === .okc.r') {
+        if(tokenAddress === 'ether') {
 
             if(EthAccounts.findOne({address: address}, {reactive: false})) {
                 web3.okc.estimateGas({
@@ -256,7 +256,7 @@ Template['views_send'].helpers({
     /**
     Get the current selected account
 
-    @.okc.d (selectedAccount)
+    @method (selectedAccount)
     */
     'selectedAccount': function(){
         return Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value'));
@@ -264,7 +264,7 @@ Template['views_send'].helpers({
     /**
     Get the current selected token document
 
-    @.okc.d (selectedToken)
+    @method (selectedToken)
     */
     'selectedToken': function(){
         return Tokens.findOne({address: TemplateVar.get('selectedToken')});
@@ -272,7 +272,7 @@ Template['views_send'].helpers({
     /**
     Retrun checked, if the current token is selected
 
-    @.okc.d (tokenSelectedAttr)
+    @method (tokenSelectedAttr)
     */
     'tokenSelectedAttr': function(token) {
         return (TemplateVar.get('selectedToken') === token)
@@ -282,7 +282,7 @@ Template['views_send'].helpers({
     /**
     Get all tokens
 
-    @.okc.d (tokens)
+    @method (tokens)
     */
     'tokens': function(){
         if(TemplateVar.get('selectedAction') === 'send-funds')
@@ -291,7 +291,7 @@ Template['views_send'].helpers({
     /**
     Checks if the current selected account has tokens
 
-    @.okc.d (hasTokens)
+    @method (hasTokens)
     */
     'hasTokens': function() {
         var selectedAccount = Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value')),
@@ -308,7 +308,7 @@ Template['views_send'].helpers({
     /**
     Show the byte code only for the data field
 
-    @.okc.d (showOnlyByteTextarea)
+    @method (showOnlyByteTextarea)
     */
     'showOnlyByteTextarea': function() {
         return (TemplateVar.get("selectedAction") !== "deploy-contract");
@@ -316,18 +316,18 @@ Template['views_send'].helpers({
     /**
     Return the currently selected fee + amount
 
-    @.okc.d (total)
+    @method (total)
     */
-    'total': function.okc.r){
+    'total': function(ether){
         var selectedAccount = Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value'));
         var amount = TemplateVar.get('amount');
         if(!_.isFinite(amount))
             return '0';
 
-        //.okc.r
+        // ether
         var gasInWei = TemplateVar.getFrom('.dapp-select-gas-price', 'gasInWei') || '0';
 
-        if (TemplateVar.get('selectedToken') === .okc.r') {
+        if (TemplateVar.get('selectedToken') === 'ether') {
             amount = (selectedAccount && selectedAccount.owners)
                 ? amount
                 : new BigNumber(amount, 10).plus(new BigNumber(gasInWei, 10));
@@ -339,7 +339,7 @@ Template['views_send'].helpers({
     /**
     Return the currently selected token amount
 
-    @.okc.d (tokenTotal)
+    @method (tokenTotal)
     */
     'tokenTotal': function(){
         var amount = TemplateVar.get('amount'),
@@ -351,15 +351,15 @@ Template['views_send'].helpers({
         return Helpers.formatNumberByDecimals(amount, token.decimals);
     },
     /**
-    Returns the total amount - the fee paid to send all.okc.r/coins out of the account
+    Returns the total amount - the fee paid to send all ether/coins out of the account
 
-    @.okc.d (sendAllAmount)
+    @method (sendAllAmount)
     */
     'sendAllAmount': function(){
         var selectedAccount = Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value'));
         var amount = 0;
 
-        if (TemplateVar.get('selectedToken') === .okc.r') {
+        if (TemplateVar.get('selectedToken') === 'ether') {
             var gasInWei = TemplateVar.getFrom('.dapp-select-gas-price', 'gasInWei') || '0';
 
             // deduct fee if account, for contracts use full amount
@@ -381,7 +381,7 @@ Template['views_send'].helpers({
     /**
     Returns the decimals of the current token
 
-    @.okc.d (tokenDecimals)
+    @method (tokenDecimals)
     */
     'tokenDecimals': function(){
         var token = Tokens.findOne({address: TemplateVar.get('selectedToken')});
@@ -390,7 +390,7 @@ Template['views_send'].helpers({
     /**
     Returns the right time text for the "sendText".
 
-    @.okc.d (timeText)
+    @method (timeText)
     */
     'timeText': function(){
         return TAPi18n.__('wallet.send.texts.timeTexts.'+ ((Number(TemplateVar.getFrom('.dapp-select-gas-price', 'feeMultiplicator')) + 5) / 2).toFixed(0));
@@ -399,7 +399,7 @@ Template['views_send'].helpers({
 
     Shows correct explanation for token type
 
-    @.okc.d (sendExplanation)
+    @method (sendExplanation)
     */
     'sendExplanation': function(){
 
@@ -420,7 +420,7 @@ Template['views_send'].helpers({
     /**
     Get Balance of a token
 
-    @.okc.d (formattedCoinBalance)
+    @method (formattedCoinBalance)
     */
     'formattedCoinBalance': function(e){
         var selectedAccount = Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value'));
@@ -432,7 +432,7 @@ Template['views_send'].helpers({
     /**
     Checks if the current selected account is a wallet contract
 
-    @.okc.d (selectedAccountIsWalletContract)
+    @method (selectedAccountIsWalletContract)
     */
     'selectedAccountIsWalletContract': function(){
         var selectedAccount = Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value'));
@@ -441,7 +441,7 @@ Template['views_send'].helpers({
     /**
     Clear amount from characters
 
-    @.okc.d (clearAmountFromChars)
+    @method (clearAmountFromChars)
     */
     'clearAmountFromChars': function(amount){
         amount = (~amount.indexOf('.'))
@@ -466,10 +466,10 @@ Template['views_send'].events({
     /**
     Select a token
 
-    @event click .token.okc.r
+    @event click .token-ether
     */
-    'click .token.okc.r': function(e, template){
-        TemplateVar.set('selectedToken', .okc.r');
+    'click .token-ether': function(e, template){
+        TemplateVar.set('selectedToken', 'ether');
 
         // trigger amount box change
         template.$('input[name="amount"]').trigger('change');
@@ -483,7 +483,7 @@ Template['views_send'].events({
         var value = e.currentTarget.value;
         TemplateVar.set('selectedToken', value);
 
-        if (value === .okc.r')
+        if (value === 'ether')
             TemplateVar.setTo('.dapp-data-textarea', 'value', '');
 
         // trigger amount box change
@@ -495,8 +495,8 @@ Template['views_send'].events({
     @event keyup input[name="amount"], change input[name="amount"], input input[name="amount"]
     */
     'keyup input[name="amount"], change input[name="amount"], input input[name="amount"]': function(e, template){
-        //.okc.r
-        if(TemplateVar.get('selectedToken') === .okc.r') {
+        // ether
+        if(TemplateVar.get('selectedToken') === 'ether') {
             var wei = EthTools.toWei(e.currentTarget.value.replace(',','.'));
 
             TemplateVar.set('amount', wei || '0');
@@ -540,7 +540,7 @@ Template['views_send'].events({
                 estimatedGas = 22000;
 
             // if its a wallet contract and tokens, don't need to remove the gas addition on send-all, as the owner pays
-            if(sendAll && (selectedAccount.owners || tokenAddress !== .okc.r'))
+            if(sendAll && (selectedAccount.owners || tokenAddress !== 'ether'))
                 sendAll = false;
 
 
@@ -552,7 +552,7 @@ Template['views_send'].events({
                     duration: 2
                 });
 
-            if(selectedAccount.balance === '0' && (!selectedAccount.owners || tokenAddress === .okc.r'))
+            if(selectedAccount.balance === '0' && (!selectedAccount.owners || tokenAddress === 'ether'))
                 return GlobalNotification.warning({
                     content: 'i18n:wallet.send.error.emptyWallet',
                     duration: 2
@@ -564,7 +564,7 @@ Template['views_send'].events({
                     duration: 2
                 });
 
-            if(tokenAddress === .okc.r') {
+            if(tokenAddress === 'ether') {
 
                 if((_.isEmpty(amount) || amount === '0' || !_.isFinite(amount)) && !data)
                     return GlobalNotification.warning({

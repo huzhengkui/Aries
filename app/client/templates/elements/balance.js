@@ -21,17 +21,17 @@ Template['elements_balance'].helpers({
     /**
     Gets currently selected unit
 
-    @.okc.d (convertedBalance)
+    @method (convertedBalance)
     */
     'convertedBalance': function(){
         var balance = TemplateVar.get('balance');
 
-        if (EthTools.getUnit() === 'n.okc.r') return 'infinite';
+        if (EthTools.getUnit() === 'noether') return 'infinite';
 
         if(balance){
             if(EthTools.getUnit() === 'usd' || EthTools.getUnit() === 'eur' || EthTools.getUnit() === 'gbp' || EthTools.getUnit() === 'brl')
                 return EthTools.formatBalance(TemplateVar.get('balance'), '0,0.00');
-            else if(EthTools.getUnit() === .okc.r')
+            else if(EthTools.getUnit() === 'ether')
                 return EthTools.formatBalance(TemplateVar.get('balance'), (this.showAllDecimals? '0,0.00[0000000000000000]' : '0,0.00') );
             else if(EthTools.getUnit() === 'finney')
                 return EthTools.formatBalance(TemplateVar.get('balance'), (this.showAllDecimals? '0,0.00[00000000000000]' : '0,0.00'));
@@ -42,7 +42,7 @@ Template['elements_balance'].helpers({
     /**
     Get the current balance and count it up/down to the new balance.
 
-    @.okc.d (getBalance)
+    @method (getBalance)
     */
     'getBalance': function(){
         var data = this,

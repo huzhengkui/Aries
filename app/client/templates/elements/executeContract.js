@@ -34,7 +34,7 @@ Template['elements_executeContract'].helpers({
     /**
     Reruns when the data context changes
 
-    @.okc.d (reactiveContext)
+    @method (reactiveContext)
     */
     'reactiveContext': function() {
         var contractInstance = web3.okc.contract(this.jsonInterface).at(this.address);
@@ -107,7 +107,7 @@ The contract constants template
 /**
 Formats the values for display
 
-@.okc.d formatOutput
+@method formatOutput
 */
 var formatOutput = function(val) {
     if(_.isArray(val))
@@ -170,7 +170,7 @@ Template['elements_executeContract_constant'].helpers({
     /**
     Formats the value if its a big number or array
 
-    @.okc.d (value)
+    @method (value)
     */
     'value': function() {
         return _.isArray(this.value) ? formatOutput(this.value) : [formatOutput(this.value)];
@@ -178,7 +178,7 @@ Template['elements_executeContract_constant'].helpers({
     /**
     Figures out extra data
 
-    @.okc.d (extra)
+    @method (extra)
     */
     'extra': function() {
         var data = formatOutput(this); // 1000000000

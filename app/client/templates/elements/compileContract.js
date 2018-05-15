@@ -81,9 +81,9 @@ Template['elements_compileContract'].onCreated(function() {
 
         } else {
             // Bytecode Data  
-            if (!selectedToken || selectedToken === .okc.r') {
+            if (!selectedToken || selectedToken === 'ether') {
 
-                // send.okc.r         
+                // send ether         
                 txData = (TemplateVar.get('show')) ? textareaData : '';
 
             }
@@ -213,7 +213,7 @@ Template['elements_compileContract'].helpers({
     /**
     This helper will react to changes of the data context
 
-    @.okc.d (reactiveContext)
+    @method (reactiveContext)
     */
     'reactiveContext': function() {
         if(this.onlyByteCode) {
@@ -232,7 +232,7 @@ Template['elements_compileContract'].helpers({
     /**
     Get selected contract functions
 
-    @.okc.d (selectedContractInputs)
+    @method (selectedContractInputs)
     */
     'selectedContractInputs' : function(){
         selectedContract = TemplateVar.get('selectedContract');        

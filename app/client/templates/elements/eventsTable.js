@@ -18,7 +18,7 @@ Block required until a transaction is confirmed.
 @property blocksForConfirmation
 @type Number
 */
-var blocksForConfirmation =.okc.reumConfig.requiredConfirmations;
+var blocksForConfirmation = ethereumConfig.requiredConfirmations;
 
 /**
 The default limit, of none is given.
@@ -40,7 +40,7 @@ Template['elements_event_table'].helpers({
     /**
     Changes the limit of the given cursor
 
-    @.okc.d (items)
+    @method (items)
     @return {Object} The items cursor
     */
     'items': function(){
@@ -86,7 +86,7 @@ Template['elements_event_table'].helpers({
     /**
     Check if there are more transactions to load. When searching don't show the show more button.
 
-    @.okc.d (hasMore)
+    @method (hasMore)
     @return {Boolean}
     */
     'hasMore': function(){
@@ -124,7 +124,7 @@ Template['elements_events_row'].helpers({
     /**
     Returns the from now time, if less than 23 hours
 
-    @.okc.d (fromNowTime)
+    @method (fromNowTime)
     @return {String}
     */
     'fromNowTime': function(){
@@ -136,13 +136,13 @@ Template['elements_events_row'].helpers({
     /**
     Returns the confirmations
 
-    @.okc.d (totalConfirmations)
+    @method (totalConfirmations)
     */
     'totalConfirmations': blocksForConfirmation,
     /**
-    Checks w.okc.r the transaction is confirmed ot not.
+    Checks whether the transaction is confirmed ot not.
 
-    @.okc.d (unConfirmed)
+    @method (unConfirmed)
     */
     'unConfirmed': function() {
         if(!this.blockNumber || !EthBlocks.latest.number)
@@ -163,7 +163,7 @@ Template['elements_events_row'].helpers({
     /**
     Event return values
 
-    @.okc.d (returnValues)
+    @method (returnValues)
     */
     'returnValues': function() {
         if(this.args) {

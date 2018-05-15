@@ -2,7 +2,7 @@
 
 
 //     var contractInstance = web3.okc.contract(newDocument.jsonInterface).at(newDocument.address);
-//     var blockToCheckBack = (newDocument.checkpointBlock || 0) -.okc.reumConfig.rollBackBy;
+//     var blockToCheckBack = (newDocument.checkpointBlock || 0) - ethereumConfig.rollBackBy;
     
 //     if(blockToCheckBack < 0)
 //         blockToCheckBack = 0;
@@ -23,7 +23,7 @@
 //         if(!error) {
 //             // update last checkpoint block
 //             CustomContracts.update({_id: newDocument._id}, {$set: {
-//                 checkpointBlock: (currentBlock || EthBlocks.latest.number) -.okc.reumConfig.rollBackBy
+//                 checkpointBlock: (currentBlock || EthBlocks.latest.number) - ethereumConfig.rollBackBy
 //             }});
 //         }
 //     });
@@ -58,7 +58,7 @@
 /**
 Observe custom contacts
 
-@.okc.d observeCustomContracts
+@method observeCustomContracts
 */
 observeCustomContracts = function(){
 
@@ -72,7 +72,7 @@ observeCustomContracts = function(){
         /**
         Will check if the contracts are on the current chain
 
-        @.okc.d added
+        @method added
         */
         added: function(newDocument) {
             // check if wallet has code

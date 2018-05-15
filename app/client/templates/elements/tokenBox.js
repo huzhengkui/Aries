@@ -9,7 +9,7 @@ Template['elements_tokenBox'].helpers({
     /**
     Formats the total balance
 
-    @.okc.d (formattedTotalBalance)
+    @method (formattedTotalBalance)
     */
     'formattedTotalBalance': function(e){
         // Get wallets and accounts, but not contracts
@@ -28,7 +28,7 @@ Template['elements_tokenBox'].helpers({
     /**
     Generates the geo pattern for the background
 
-    @.okc.d (geoPattern)
+    @method (geoPattern)
     */
     'geoPattern' : function(){
         var pattern = GeoPattern.generate(this.address, {color: '#CCC6C6'});

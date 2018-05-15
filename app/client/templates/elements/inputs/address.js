@@ -15,7 +15,7 @@ Template['elements_input_address'].helpers({
     /**
     Add the attributes and merge the current context
 
-    @.okc.d (attributes)
+    @method (attributes)
     @return {String}
     */
     'attributes': function() {

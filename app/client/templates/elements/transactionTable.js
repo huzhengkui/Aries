@@ -18,7 +18,7 @@ Block required until a transaction is confirmed.
 @property blocksForConfirmation
 @type Number
 */
-var blocksForConfirmation =.okc.reumConfig.requiredConfirmations;
+var blocksForConfirmation = ethereumConfig.requiredConfirmations;
 
 /**
 The default limit, of none is given.
@@ -40,7 +40,7 @@ Template['elements_transactions_table'].helpers({
     /**
     Changes the limit of the given cursor
 
-    @.okc.d (items)
+    @method (items)
     @return {Object} The items cursor
     */
     'items': function(){
@@ -86,7 +86,7 @@ Template['elements_transactions_table'].helpers({
     /**
     Check if there are more transactions to load. When searching don't show the show more button.
 
-    @.okc.d (hasMore)
+    @method (hasMore)
     @return {Boolean}
     */
     'hasMore': function(){
@@ -126,7 +126,7 @@ Template['elements_transactions_row'].helpers({
     Checks if, from the perspective of the selected account
     the transaction was incoming or outgoing.
 
-    @.okc.d (incomingTx)
+    @method (incomingTx)
     @param {String} account     The _id of the current account
     */
     'incomingTx': function(account){
@@ -137,7 +137,7 @@ Template['elements_transactions_row'].helpers({
     /**
     Returns the correct text for this transaction
 
-    @.okc.d (transactionType)
+    @method (transactionType)
     @return {String}
     */
     'transactionType': function(){
@@ -172,7 +172,7 @@ Template['elements_transactions_row'].helpers({
     /**
     Returns the from now time, if less than 23 hours
 
-    @.okc.d (fromNowTime)
+    @method (fromNowTime)
     @return {String}
     */
     'fromNowTime': function(){
@@ -184,13 +184,13 @@ Template['elements_transactions_row'].helpers({
     /**
     Returns the confirmations
 
-    @.okc.d (totalConfirmations)
+    @method (totalConfirmations)
     */
     'totalConfirmations': blocksForConfirmation,
     /**
-    Checks w.okc.r the transaction is confirmed ot not.
+    Checks whether the transaction is confirmed ot not.
 
-    @.okc.d (unConfirmed)
+    @method (unConfirmed)
     */
     'unConfirmed': function() {
         if(!this.blockNumber || !EthBlocks.latest.number)
@@ -211,7 +211,7 @@ Template['elements_transactions_row'].helpers({
     /**
     Return the number of owner confirmations
 
-    @.okc.d (ownerConfirmationCount)
+    @method (ownerConfirmationCount)
     */
     'ownerConfirmationCount': function(){
         var account = Helpers.getAccountByAddress(this.from);
@@ -222,7 +222,7 @@ Template['elements_transactions_row'].helpers({
     /**
     Get the owners of the current pending transactions wallet.
 
-    @.okc.d (owners)
+    @method (owners)
     */
     'owners': function(){
         var account = Helpers.getAccountByAddress(this.from);
@@ -231,7 +231,7 @@ Template['elements_transactions_row'].helpers({
     /**
     Check if the current owner is confirmed
 
-    @.okc.d (ownerIsConfirmed)
+    @method (ownerIsConfirmed)
     */
     'ownerIsConfirmed': function(){
         var owner = String(this);
@@ -240,7 +240,7 @@ Template['elements_transactions_row'].helpers({
     /**
     Check if the current owner has already approved the transaction
 
-    @.okc.d (approved)
+    @method (approved)
     */
     'approved': function(){
         if(!this.confirmedOwners)
@@ -251,7 +251,7 @@ Template['elements_transactions_row'].helpers({
     /**
     Check if the current owner has not yetr approved the transaction
 
-    @.okc.d (notApproved)
+    @method (notApproved)
     */
     'notApproved': function(){
         return !Helpers.getAccountByAddress({$in: this.confirmedOwners || []});
@@ -259,7 +259,7 @@ Template['elements_transactions_row'].helpers({
     /**
     Check if there is any owner that needs to still approve
 
-    @.okc.d (multipleOwnersApproved)
+    @method (multipleOwnersApproved)
     */
     'multipleOwnersApproved': function(e){
         var account = Helpers.getAccountByAddress(this.from);
@@ -268,7 +268,7 @@ Template['elements_transactions_row'].helpers({
     /**
     Token value
 
-    @.okc.d (tokenValue)
+    @method (tokenValue)
     */
     'tokenValue': function() {
         var token = Tokens.findOne(this.tokenId);

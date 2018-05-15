@@ -23,27 +23,27 @@ collectionObservers = [];
 
 
 /**
-Config for the.okc.reum connector
+Config for the ethereum connector
 
 @property config
 */
-okcAppConfig = {
+ethereumConfig = {
     /**
     Number of blocks to rollback, from the last checkpoint block of the wallet.
 
-    @property.okc.reumConfig.rollBackBy
+    @property ethereumConfig.rollBackBy
     */
     rollBackBy: 0,
     /**
     Number of blocks to confirm a wallet
 
-    @property.okc.reumConfig.requiredConfirmations
+    @property ethereumConfig.requiredConfirmations
     */
     requiredConfirmations: 12,
     /**
     The default daily limit used for simple accounts
 
-    @property.okc.reumConfig.dailyLimitDefault
+    @property ethereumConfig.dailyLimitDefault
     */
     dailyLimitDefault: '100000000000000000000000000'
 };
@@ -52,7 +52,7 @@ okcAppConfig = {
 /**
 Connects to a node and setup all the filters for the accounts.
 
-@.okc.d connectToNode
+@method connectToNode
 */
 connectToNode = function(){
 
@@ -76,7 +76,7 @@ connectToNode = function(){
     //     // Go through all accounts and re-run
     //     _.each(Wallets.find({}).fetch(), function(wallet){
     //         // REMOVE ADDRESS for YOUNG ACCOUNTS, so that it tries to get the Created event and correct address again
-    //         if(wallet.creationBlock +.okc.reumConfig.requiredConfirmations >= block.number)
+    //         if(wallet.creationBlock + ethereumConfig.requiredConfirmations >= block.number)
     //             delete wallet.address;
 
     //         setupContractFilters(wallet);
@@ -104,7 +104,7 @@ connectToNode = function(){
 /**
 Will remove all transactions, and will set the checkpointBlock to the creationBlock in the wallets
 
-@.okc.d connectToNode
+@method connectToNode
 */
 resetWallet = function function_name (argument) {
     _.each(Transactions.find().fetch(), function(tx) {

@@ -16,7 +16,7 @@ Template['views_dashboard'].helpers({
     /**
     Get all current wallets
 
-    @.okc.d (wallets)
+    @method (wallets)
     */
     'wallets': function(){
         var wallets = Wallets.find({$or: [{disabled: {$exists: false}}, {disabled: false}]}, {sort: {creationBlock: 1}}).fetch();
@@ -29,7 +29,7 @@ Template['views_dashboard'].helpers({
     /**
     Get all current accounts
 
-    @.okc.d (accounts)
+    @method (accounts)
     */
     'accounts': function(){
         // balance need to be present, to show only full inserted accounts (not ones added by mist.requestAccount)
@@ -42,7 +42,7 @@ Template['views_dashboard'].helpers({
     /**
     Are there any accounts?
 
-    @.okc.d (hasAccounts)
+    @method (hasAccounts)
     */
     'hasAccounts' : function() {
         return (EthAccounts.find().count() > 0);
@@ -50,7 +50,7 @@ Template['views_dashboard'].helpers({
     /**
     Are there any accounts?
 
-    @.okc.d (hasAccounts)
+    @method (hasAccounts)
     */
     'hasMinimumBalance' : function() {
 
@@ -64,7 +64,7 @@ Template['views_dashboard'].helpers({
     /**
     Get all transactions
 
-    @.okc.d (allTransactions)
+    @method (allTransactions)
     */
     'allTransactions': function(){
         return Transactions.find({}, {sort: {timestamp: -1}}).count();
@@ -72,7 +72,7 @@ Template['views_dashboard'].helpers({
     /**
     Returns an array of pending confirmations, from all accounts
 
-    @.okc.d (pendingConfirmations)
+    @method (pendingConfirmations)
     @return {Array}
     */
     'pendingConfirmations': function(){

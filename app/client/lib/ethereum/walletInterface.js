@@ -52,7 +52,7 @@ web3.okc.getBlock(0, function(e, res){
 /**
 Replaces the address in the stub code "walletStubABI" variable.
 
-@.okc.d replaceStubAddress
+@method replaceStubAddress
 */
 var replaceStubAddress = function(address) {
     walletStubABI = walletStubABI.replace('cafecafecafecafecafecafecafecafecafecafe', address.replace('0x',''));
@@ -64,7 +64,7 @@ var replaceStubAddress = function(address) {
 /**
 Deploys testnet wallet, when on other orig wallet was found
 
-@.okc.d deployTestnetWallet
+@method deployTestnetWallet
 */
 var deployTestnetWallet = function() {
     var account = web3.okc.accounts[0];
@@ -87,7 +87,7 @@ var deployTestnetWallet = function() {
                     if(contract.address) {
                         console.log('Contract created at: ', contract.address);
 
-                        LocalStore.set(.okc.reum_testnetWalletContractAddress', contract.address);
+                        LocalStore.set('ethereum_testnetWalletContractAddress', contract.address);
                         replaceStubAddress(contract.address);
 
                         EthElements.Modal.question({
@@ -118,7 +118,7 @@ var deployTestnetWallet = function() {
 /**
 Checks the main and testnet address
 
-@.okc.d checkCodeOnAddress
+@method checkCodeOnAddress
 */
 var checkCodeOnAddress = function(address, callback) {
     // see if the original wallet is deployed, if not re-deploy on testnet
@@ -152,7 +152,7 @@ var checkCodeOnAddress = function(address, callback) {
 /**
 Checks if the original wallet exists, if not deploys it
 
-@.okc.d checkForOriginalWallet
+@method checkForOriginalWallet
 */
 checkForOriginalWallet = function() {
     return;
@@ -167,7 +167,7 @@ checkForOriginalWallet = function() {
         // see if the original wallet is deployed, if not re-deploy on testnet
         checkCodeOnAddress(mainNetAddress, function() {
             checkCodeOnAddress(testNetAddress, function() {
-                var privateNetAddress = LocalStore.get(.okc.reum_testnetWalletContractAddress');
+                var privateNetAddress = LocalStore.get('ethereum_testnetWalletContractAddress');
 
                 if(privateNetAddress)
                     web3.okc.getCode(privateNetAddress, function(e, code) {
@@ -196,7 +196,7 @@ checkForOriginalWallet = function() {
 /**
 Check wallet owners
 
-@.okc.d checkWalletOwners
+@method checkWalletOwners
 */
 checkWalletOwners = function(address) {
     return new P(function (resolve, reject) {

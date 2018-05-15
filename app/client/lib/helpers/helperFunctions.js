@@ -15,7 +15,7 @@ Helpers = {};
 /**
 Get the default contract example
 
-@.okc.d getDefaultContractExample
+@method getDefaultContractExample
 **/
 Helpers.getDefaultContractExample = function(withoutPragma) {
     var source = 'contract MyContract {\n    /* Constructor */\n    function MyContract() public {\n\n    }\n}';
@@ -26,7 +26,7 @@ Helpers.getDefaultContractExample = function(withoutPragma) {
         var solcVersion;
 
         // Keep this for now as the Mist-API object will only be availabe from Mist version >= 0.8.9
-        // so that older versions that will query code from wallet.okc.reum.org won't use broken example code.
+        // so that older versions that will query code from wallet.ethereum.org won't use broken example code.
         if (typeof mist !== 'undefined' && mist.solidity && mist.solidity.version) {
             solcVersion = mist.solidity.version;
         }
@@ -43,7 +43,7 @@ Reruns functions reactively, based on an interval. Use it like so:
     Helpers.rerun['10s'].tick();
 
 
-@.okc.d rerun
+@method rerun
 **/
 Helpers.rerun = {
     '10s': new ReactiveTimer(10),
@@ -52,9 +52,9 @@ Helpers.rerun = {
 
 
 /**
-Sort .okc.d for accounts and wallets to sort by balance
+Sort method for accounts and wallets to sort by balance
 
-@.okc.d sortByBalance
+@method sortByBalance
 **/
 Helpers.sortByBalance = function(a, b){
     return !b.disabled && new BigNumber(b.balance, 10).gt(new BigNumber(a.balance, 10)) ? 1 : -1;
@@ -64,7 +64,7 @@ Helpers.sortByBalance = function(a, b){
 /**
 Return an account you own, from a list of accounts
 
-@.okc.d getOwnedAccountFrom
+@method getOwnedAccountFrom
 @param {Array} accountList array of account addresses
 @return {Mixed} the account address of an account owned
 **/
@@ -84,7 +84,7 @@ Helpers.getOwnedAccountFrom = function(accountList){
 /**
 Clear localStorage
 
-@.okc.d getLocalStorageSize
+@method getLocalStorageSize
 **/
 Helpers.getLocalStorageSize = function(){
 
@@ -101,7 +101,7 @@ Helpers.getLocalStorageSize = function(){
 /**
 Make a ID out of a given hash and prefix.
 
-@.okc.d makeId
+@method makeId
 @param {String} prefix
 @param {String} hash
 */
@@ -113,7 +113,7 @@ Helpers.makeId = function(prefix, hash){
 /**
 Format a number based on decimal numbers
 
-@.okc.d formatNumberByDecimals
+@method formatNumberByDecimals
 @param {Number} number
 @param {Number} decimals
 */
@@ -131,7 +131,7 @@ Helpers.formatNumberByDecimals = function(number, decimals){
 /**
 Display logs in the console for events.
 
-@.okc.d eventLogs
+@method eventLogs
 */
 Helpers.eventLogs = function(){
     console.log('EVENT LOG: ', arguments);
@@ -140,7 +140,7 @@ Helpers.eventLogs = function(){
 /**
 Check if we are on the correct chain and display an error.
 
-@.okc.d checkChain
+@method checkChain
 @param {Function} callback provide a callback, to get notified if successfull or error (will contain an error object as first parameter, if error)
 */
 Helpers.checkChain = function(callback){
@@ -162,7 +162,7 @@ Helpers.checkChain = function(callback){
 /**
 Check if the given wallet is a watch only wallet, by checking if we are one of owners in the wallet.
 
-@.okc.d isWatchOnly
+@method isWatchOnly
 @param {String} id the id of the wallet to check
 */
 Helpers.isWatchOnly = function(id) {
@@ -172,7 +172,7 @@ Helpers.isWatchOnly = function(id) {
 /**
 Shows a notification and plays a sound
 
-@.okc.d showNotification
+@method showNotification
 @param {String} i18nText
 @param {Object} the i18n values passed to the i18n text
 */
@@ -193,7 +193,7 @@ Helpers.showNotification = function(i18nText, values, callback) {
 /**
 Gets the docuement matching the given addess from the EthAccounts or Wallets collection.
 
-@.okc.d getAccountByAddress
+@method getAccountByAddress
 @param {String} address
 @param {Boolean} reactive
 */
@@ -207,7 +207,7 @@ Helpers.getAccountByAddress = function(address, reactive) {
 /**
 Gets the docuement matching the given query from the EthAccounts or Wallets collection.
 
-@.okc.d getAccounts
+@method getAccounts
 @param {String} query
 @param {Boolean} reactive
 */
@@ -221,7 +221,7 @@ Helpers.getAccounts = function(query, reactive) {
 /**
 Gets the docuement matching the given addess from the EthAccounts or Wallets collection and returns its name or address.
 
-@.okc.d getAccountNameByAddress
+@method getAccountNameByAddress
 @param {String} name or address
 */
 Helpers.getAccountNameByAddress = function(address) {
@@ -234,7 +234,7 @@ Helpers.getAccountNameByAddress = function(address) {
 /**
 Reactive wrapper for the moment package.
 
-@.okc.d moment
+@method moment
 @param {String} time    a date object passed to moment function.
 @return {Object} the moment js package
 **/
@@ -256,7 +256,7 @@ Formats a timestamp to any format given.
 
     Helpers.formatTime(myTime, "YYYY-MM-DD")
 
-@.okc.d formatTime
+@method formatTime
 @param {String} time         The timestamp, can be string or unix format
 @param {String} format       the format string, can also be "iso", to format to ISO string, or "fromnow"
 @return {String} The formated time
@@ -292,7 +292,7 @@ Formats a given transactions balance
 
     Helpers.formatTransactionBalance(tx)
 
-@.okc.d formatTransactionBalance
+@method formatTransactionBalance
 @param {String} value  the value to format
 @param {Object} exchangeRates  the exchange rates to use
 @param {String} unit  the unit to format to
@@ -315,7 +315,7 @@ Helpers.formatTransactionBalance = function(value, exchangeRates, unit) {
         else
             format += '[0]';
 
-        var price = new BigNumber(String(web3.fromWei(value, .okc.r')), 10).times(exchangeRates[unit].price);
+        var price = new BigNumber(String(web3.fromWei(value, 'ether')), 10).times(exchangeRates[unit].price);
         return EthTools.formatNumber(price, format) + ' '+ unit.toUpperCase();
     } else {
         return EthTools.formatBalance(value, format + '[0000000000000000] UNIT');
@@ -328,7 +328,7 @@ Formats an input and prepares it to be a template
 
     Helpers.createTemplateDataFromInput(abiFunctionInput);
 
-@.okc.d createTemplateDataFromInput
+@method createTemplateDataFromInput
 @param {object} input           The input object, out of an ABI
 @return {object} input          The input object with added variables to make it into a template
 **/
@@ -362,7 +362,7 @@ Helpers.createTemplateDataFromInput = function (input, key){
 /**
 Adds the input value from a form field to the inputs array
 
-@.okc.d addInputValue
+@method addInputValue
 @param {object} inputs          The current inputs
 @param {object} currentInput   The current input
 @return {Array} array of parameter values
@@ -407,7 +407,7 @@ Helpers.addInputValue = function (inputs, currentInput, formField){
 /**
 Takes a camelcase and shows it with spaces
 
-@.okc.d toSentence
+@method toSentence
 @param {string} camelCase    A name in CamelCase or snake_case format
 @return {string} sentence    The same name, sanitized, with spaces
 **/
@@ -427,7 +427,7 @@ Helpers.toSentence = function (inputString, noHTML) {
 /**
 Returns true if Main is the current network.
 
-@.okc.d isOnMainNetwork
+@method isOnMainNetwork
 @return {Bool}
 **/
 Helpers.isOnMainNetwork = function () {
@@ -463,7 +463,7 @@ var ensAddress = '0x314159265dd8dbb310642f98f50c066173c1259b';
 /**
 Returns a string, given an address
 
-@.okc.d getENSName
+@method getENSName
 **/
 Helpers.getENSName = function(address, callback) {
 
